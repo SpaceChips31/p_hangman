@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:logger/logger.dart'; 
 import '/l10n/l10n.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -13,8 +14,11 @@ class SettingsScreen extends StatefulWidget {
 
 class SettingsScreenState extends State<SettingsScreen> {
   String selectedLanguage = 'en';
+  String selectedLayout = 'Standard';
   double wordLength = 9.0;
   bool isLoading = true;
+
+  final Logger _logger = Logger();
 
   @override
   void initState() {
@@ -25,16 +29,27 @@ class SettingsScreenState extends State<SettingsScreen> {
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      selectedLanguage = prefs.getString('selectedLanguage') ?? 'en';
+      selectedLanguage =
+          prefs.getString('selectedLanguage') ?? _getDeviceLanguage();
+      selectedLayout = prefs.getString('keyboardLayout') ?? 'Standard';
       wordLength = prefs.getDouble('wordLength') ?? 9.0;
       isLoading = false;
+      _logger.i('Layout caricato: $selectedLayout');
     });
   }
 
-  Future<void> _saveSettings(String language, double wordLength) async {
+  String _getDeviceLanguage() {
+    final locale = Localizations.localeOf(context);
+    return locale.languageCode == 'it' ? 'it' : 'en';
+  }
+
+  Future<void> _saveSettings(
+      String language, String layout, double wordLength) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('selectedLanguage', language);
+    await prefs.setString('keyboardLayout', layout);
     await prefs.setDouble('wordLength', wordLength);
+    _logger.i('Layout salvato: $layout');
   }
 
   @override
@@ -42,6 +57,7 @@ class SettingsScreenState extends State<SettingsScreen> {
     final settingsTitle = S.of(context).settingsTitle;
     final languageLabel = S.of(context).languageLabel;
     final wordLengthLabel = S.of(context).wordLengthLabel;
+    final layoutLabel = S.of(context).layoutLabel;
 
     return Scaffold(
       appBar: AppBar(
@@ -64,7 +80,7 @@ class SettingsScreenState extends State<SettingsScreen> {
                           selectedLanguage = newValue;
                           widget.onLocaleChange(newValue);
                         });
-                        _saveSettings(newValue, wordLength);
+                        _saveSettings(newValue, selectedLayout, wordLength);
                       }
                     },
                     items: <String>['it', 'en']
@@ -73,6 +89,32 @@ class SettingsScreenState extends State<SettingsScreen> {
                         value: value,
                         child: Text(
                           value == 'it' ? 'Italiano' : 'English',
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      );
+                    }).toList(),
+                    dropdownColor: Colors.white,
+                  ),
+                ),
+                ListTile(
+                  title: Text(layoutLabel,
+                      style: const TextStyle(color: Colors.black)),
+                  trailing: DropdownButton<String>(
+                    value: selectedLayout,
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          selectedLayout = newValue;
+                        });
+                        _saveSettings(selectedLanguage, newValue, wordLength);
+                      }
+                    },
+                    items: <String>['Standard', 'QWERTY', 'AZERTY']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
                           style: const TextStyle(color: Colors.black),
                         ),
                       );
@@ -93,7 +135,7 @@ class SettingsScreenState extends State<SettingsScreen> {
                       setState(() {
                         wordLength = value;
                       });
-                      _saveSettings(selectedLanguage, value);
+                      _saveSettings(selectedLanguage, selectedLayout, value);
                     },
                     activeColor: Colors.blue,
                     inactiveColor: Colors.grey,

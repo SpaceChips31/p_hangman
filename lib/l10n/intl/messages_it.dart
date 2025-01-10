@@ -23,11 +23,22 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appTitle": MessageLookupByLibrary.simpleMessage("HangMania"),
-        "language": MessageLookupByLibrary.simpleMessage("Lingua"),
+        "languageLabel": MessageLookupByLibrary.simpleMessage("Lingua"),
         "settings": MessageLookupByLibrary.simpleMessage("Impostazioni"),
         "settingsTitle": MessageLookupByLibrary.simpleMessage("Impostazioni"),
         "startButton": MessageLookupByLibrary.simpleMessage("Inizia"),
         "wordLengthLabel":
-            MessageLookupByLibrary.simpleMessage("Lunghezza parola")
+            MessageLookupByLibrary.simpleMessage("Lunghezza parola"),
+        "errGetWord": MessageLookupByLibrary.simpleMessage(
+            "Errore durante il caricamento della parola"),
+        "victoryMessage": MessageLookupByLibrary.simpleMessage("Hai vinto!"),
+        "gameOverMessage": MessageLookupByLibrary.simpleMessage("Inizia"),
+        "playAgain": MessageLookupByLibrary.simpleMessage("Gioca di nuovo?"),
+        "victoryTitle":
+            MessageLookupByLibrary.simpleMessage("Parola indovinata!"),
+        "gameOverTitle":
+            MessageLookupByLibrary.simpleMessage("L'uomo è stato impiccato!"),
+        "errorsLabel": MessageLookupByLibrary.simpleMessage("Errori:"),
+        "layoutLabel": MessageLookupByLibrary.simpleMessage("Layout tastiera:"),
       };
 }
