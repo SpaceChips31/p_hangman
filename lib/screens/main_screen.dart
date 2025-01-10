@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -14,9 +15,14 @@ class MainScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 75.0),
-                const Text(
-                  'HangMania',
-                  style: TextStyle(
+                Text(
+                  Intl.message(
+                    'HangMania', 
+                    name: 'appTitle', 
+                    desc: 'The title of the app',
+                    locale: Localizations.localeOf(context).toString(), 
+                  ),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 24.0,
                   ),
@@ -24,16 +30,20 @@ class MainScreen extends StatelessWidget {
                 const SizedBox(height: 650.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Qui puoi aggiungere la logica per iniziare il gioco;
+                    // Qui puoi aggiungere la logica per iniziare il gioco
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   ),
-                  child: const Text(
-                    'Start',
-                    style: TextStyle(
+                  child: Text(
+                    Intl.message(
+                      'Start',
+                      name: 'startButton',
+                      desc: 'The label on the start button',
+                      locale: Localizations.localeOf(context).toString(),
+                    ),
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18.0,
                     ),

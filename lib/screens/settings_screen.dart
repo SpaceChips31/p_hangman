@@ -1,48 +1,106 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '/l10n/l10n.dart';
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+class SettingsScreen extends StatefulWidget {
+  final Function(String) onLocaleChange;
+
+  const SettingsScreen({super.key, required this.onLocaleChange});
+
+  @override
+  SettingsScreenState createState() => SettingsScreenState();
+}
+
+class SettingsScreenState extends State<SettingsScreen> {
+  String selectedLanguage = 'en';
+  double wordLength = 9.0;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSettings();
+  }
+
+  Future<void> _loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      selectedLanguage = prefs.getString('selectedLanguage') ?? 'en';
+      wordLength = prefs.getDouble('wordLength') ?? 9.0;
+      isLoading = false;
+    });
+  }
+
+  Future<void> _saveSettings(String language, double wordLength) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedLanguage', language);
+    await prefs.setDouble('wordLength', wordLength);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final settingsTitle = S.of(context).settingsTitle;
+    final languageLabel = S.of(context).languageLabel;
+    final wordLengthLabel = S.of(context).wordLengthLabel;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Impostazioni'),
-        backgroundColor: Colors.grey[800], // OneUI usa spesso colori scuri per l'AppBar
+        title: Text(isLoading ? '' : settingsTitle),
+        backgroundColor: Colors.blueGrey[200],
       ),
-      body: ListView(
-        children: [
-          // Sezione per le impostazioni generali
-          Card(
-            color: Colors.grey[900], // Sfondo scuro per card
-            margin: EdgeInsets.zero,
-            child: ListTile(
-              leading: const Icon(Icons.settings, color: Colors.white),
-              title: const Text('Generali', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                // Azione quando si clicca
-              },
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                ListTile(
+                  title: Text(languageLabel,
+                      style: const TextStyle(color: Colors.black)),
+                  trailing: DropdownButton<String>(
+                    value: selectedLanguage,
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          selectedLanguage = newValue;
+                          widget.onLocaleChange(newValue);
+                        });
+                        _saveSettings(newValue, wordLength);
+                      }
+                    },
+                    items: <String>['it', 'en']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value == 'it' ? 'Italiano' : 'English',
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                      );
+                    }).toList(),
+                    dropdownColor: Colors.white,
+                  ),
+                ),
+                ListTile(
+                  title: Text(wordLengthLabel,
+                      style: const TextStyle(color: Colors.black)),
+                  subtitle: Slider(
+                    value: wordLength,
+                    min: 6,
+                    max: 12,
+                    divisions: 6,
+                    label: wordLength.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        wordLength = value;
+                      });
+                      _saveSettings(selectedLanguage, value);
+                    },
+                    activeColor: Colors.blue,
+                    inactiveColor: Colors.grey,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Divider(height: 0, color: Colors.grey[700]),
-
-          // Sezione per le notifiche
-          Card(
-            color: Colors.grey[900],
-            margin: EdgeInsets.zero,
-            child: ListTile(
-              leading: const Icon(Icons.notifications, color: Colors.white),
-              title: const Text('Notifiche', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                // Azione quando si clicca
-              },
-            ),
-          ),
-          Divider(height: 0, color: Colors.grey[700]),
-
-          // Altre impostazioni possono seguire questa struttura
-        ],
-      ),
     );
   }
 }

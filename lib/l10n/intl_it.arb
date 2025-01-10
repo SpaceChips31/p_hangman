@@ -1,0 +1,28 @@
+{
+    "@@locale": "it",
+    "appTitle": "HangMania",
+    "@appTitle": {
+      "description": "Il titolo dell'app"
+    },
+    "startButton": "Inizia",
+    "@startButton": {
+      "description": "Etichetta del pulsante di avvio"
+    },
+    "settings": "Impostazioni",
+    "@settings": {
+      "description": "Etichetta per il pulsante delle impostazioni"
+    },
+    "settingsTitle": "Impostazioni",
+    "@settingsTitle": {
+      "description": "Titolo per la schermata delle impostazioni"
+    },
+    "languageLabel": "Lingua",
+    "@languageLabel": {
+      "description": "Etichetta per l'impostazione della selezione della lingua"
+    },
+    "wordLengthLabel": "Lunghezza parola",
+    "@wordLengthLabel": {
+      "description": "Etichetta per l'impostazione della selezione della lunghezza della parola"
+    }
+  }
+  
