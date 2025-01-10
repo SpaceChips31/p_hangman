@@ -203,6 +203,16 @@ class PlayScreenState extends State<PlayScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: rowLetters.split('').map((letter) {
         final alreadyGuessed = gameController.guessedLetters.contains(letter);
+        final isCorrect = gameController.isLetterCorrect(letter);
+        final isIncorrect = !isCorrect && alreadyGuessed;
+
+        Color backgroundColor = Colors.white;
+        if (isCorrect) {
+          backgroundColor = Colors.green;
+        } else if (isIncorrect) {
+          backgroundColor = Colors.red[200]!;   
+        }
+
         return GestureDetector(
           onTap: alreadyGuessed ? null : () => _handleLetterPress(letter),
           child: Container(
@@ -210,7 +220,7 @@ class PlayScreenState extends State<PlayScreen> {
             width: 40.0,
             height: 40.0,
             decoration: BoxDecoration(
-              color: alreadyGuessed ? Colors.grey : Colors.white,
+              color: backgroundColor,
               border: Border.all(color: Colors.black),
             ),
             child: Center(

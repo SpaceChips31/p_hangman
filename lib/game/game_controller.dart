@@ -1,6 +1,7 @@
 class GameController {
   final String word;
   final Set<String> guessedLetters = {};
+  final Set<String> correctLetters = {};
   int errorCount = 0;
   final int maxErrors = 6;
 
@@ -12,7 +13,9 @@ class GameController {
     }
 
     guessedLetters.add(letter);
-    if (!word.contains(letter)) {
+    if (word.contains(letter)) {
+      correctLetters.add(letter);
+    } else {
       errorCount++;
     }
     return true;
@@ -31,5 +34,9 @@ class GameController {
         .split('')
         .map((letter) => guessedLetters.contains(letter) ? letter : '_')
         .join(' ');
+  }
+
+  bool isLetterCorrect(String letter) {
+    return correctLetters.contains(letter);
   }
 }
