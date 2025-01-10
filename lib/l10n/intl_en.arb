@@ -23,5 +23,37 @@
   "wordLengthLabel": "Word Length",
   "@wordLengthLabel": {
     "description": "Label for the word length selection setting"
+  },
+  "errGetWord": "Error loading word",
+  "@errGetWord": {
+    "description": "Error message for failed word loading"
+  },
+  "victoryMessage": "You win!",
+  "@victoryMessage": {
+    "description": "Victory message"
+  },
+  "gameOverMessage": "Game over!",
+  "@gameOverMessage": {
+    "description": "Game over message"
+  },
+  "playAgain": "Play again?",
+  "@playAgain": {
+    "description": "Play again button label"
+  },
+  "victoryTitle": "Word guessed!",
+  "@victoryTitle": {
+    "description": "Victory message title"
+  },
+  "gameOverTitle": "The man was Hanged!",
+  "@gameOverTitle": {
+    "description": "Game over message title"
+  },
+  "errorsLabel": "Errors:",
+  "@errorsLabel": {
+    "description": "Errors label"
+  },
+  "layoutLabel": "Keyboard layout:",
+  "@layoutLabel": {
+    "description": "Keyboard layout label"
   }
 }

@@ -94,7 +94,7 @@ class S {
   String get languageLabel {
     return Intl.message(
       'Language',
-      name: 'language',
+      name: 'languageLabel',
       desc: 'Label for the language selection setting',
       args: [],
     );
@@ -106,6 +106,86 @@ class S {
       'Word Length',
       name: 'wordLengthLabel',
       desc: 'Label for the word length selection setting',
+      args: [],
+    );
+  }
+
+  /// `Error loading word`
+  String get errGetWord {
+    return Intl.message(
+      'Error loading word',
+      name: 'errGetWord',
+      desc: 'Error message for failed word loading',
+      args: [],
+    );
+  }
+
+  /// `You win!`
+  String get victoryMessage {
+    return Intl.message(
+      'You win!',
+      name: 'victoryMessage',
+      desc: 'Victory message',
+      args: [],
+    );
+  }
+
+  /// `Game over!`
+  String get gameOverMessage {
+    return Intl.message(
+      'Game over!',
+      name: 'gameOverMessage',
+      desc: 'Game over message',
+      args: [],
+    );
+  }
+
+  /// `Play again?`
+  String get playAgain {
+    return Intl.message(
+      'Play again?',
+      name: 'playAgain',
+      desc: 'Play again button label',
+      args: [],
+    );
+  }
+
+  /// `Word guessed!`
+  String get victoryTitle {
+    return Intl.message(
+      'Word guessed!',
+      name: 'victoryTitle',
+      desc: 'Victory message title',
+      args: [],
+    );
+  }
+
+  /// `The man was Hanged!`
+  String get gameOverTitle {
+    return Intl.message(
+      'The man was Hanged!',
+      name: 'gameOverTitle',
+      desc: 'Game over message title',
+      args: [],
+    );
+  }
+
+  /// `Errors:`
+  String get errorsLabel {
+    return Intl.message(
+      'Errors:',
+      name: 'errorsLabel',
+      desc: 'Errors label',
+      args: [],
+    );
+  }
+
+  /// `Keyboard layout:`
+  String get layoutLabel {
+    return Intl.message(
+      'Keyboard layout:',
+      name: 'layoutLabel',
+      desc: 'Keyboard layout label',
       args: [],
     );
   }

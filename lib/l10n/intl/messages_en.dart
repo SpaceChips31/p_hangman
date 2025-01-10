@@ -23,10 +23,20 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appTitle": MessageLookupByLibrary.simpleMessage("HangMania"),
-        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "languageLabel": MessageLookupByLibrary.simpleMessage("Language"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "settingsTitle": MessageLookupByLibrary.simpleMessage("Settings"),
         "startButton": MessageLookupByLibrary.simpleMessage("Start"),
-        "wordLengthLabel": MessageLookupByLibrary.simpleMessage("Word Length")
+        "wordLengthLabel": MessageLookupByLibrary.simpleMessage("Word Length"),
+        "errGetWord":
+            MessageLookupByLibrary.simpleMessage("Error loading word"),
+        "victoryMessage": MessageLookupByLibrary.simpleMessage("You win!"),
+        "gameOverMessage": MessageLookupByLibrary.simpleMessage("Game over!"),
+        "playAgain": MessageLookupByLibrary.simpleMessage("Play again?"),
+        "victoryTitle": MessageLookupByLibrary.simpleMessage("Word guessed!"),
+        "gameOverTitle":
+            MessageLookupByLibrary.simpleMessage("The man was Hanged!"),
+        "errorsLabel": MessageLookupByLibrary.simpleMessage("Errors:"),
+        "layoutLabel": MessageLookupByLibrary.simpleMessage("Keyboard layout:")
       };
 }
