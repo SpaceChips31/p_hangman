@@ -30,7 +30,7 @@ class MainScreen extends StatelessWidget {
                 const SizedBox(height: 650.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Qui puoi aggiungere la logica per iniziare il gioco
+                    Navigator.pushNamed(context, '/play');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
