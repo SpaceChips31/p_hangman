@@ -16,10 +16,6 @@ class SettingsScreenState extends State<SettingsScreen> {
   double wordLength = 9.0;
   bool isLoading = true;
 
-  late String settingsTitle;
-  late String languageLabel;
-  late String wordLengthLabel;
-
   @override
   void initState() {
     super.initState();
@@ -31,16 +27,8 @@ class SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       selectedLanguage = prefs.getString('selectedLanguage') ?? 'en';
       wordLength = prefs.getDouble('wordLength') ?? 9.0;
-
-      _updateLabels(); // Aggiorna le variabili con i testi tradotti
       isLoading = false;
     });
-  }
-
-  void _updateLabels() {
-    settingsTitle = S.of(context).settingsTitle;
-    languageLabel = S.of(context).language;
-    wordLengthLabel = S.of(context).wordLengthLabel;
   }
 
   Future<void> _saveSettings(String language, double wordLength) async {
@@ -51,6 +39,10 @@ class SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final settingsTitle = S.of(context).settingsTitle;
+    final languageLabel = S.of(context).languageLabel;
+    final wordLengthLabel = S.of(context).wordLengthLabel;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(isLoading ? '' : settingsTitle),
@@ -70,8 +62,7 @@ class SettingsScreenState extends State<SettingsScreen> {
                       if (newValue != null) {
                         setState(() {
                           selectedLanguage = newValue;
-                          widget.onLocaleChange(newValue); // Cambia la lingua
-                          _updateLabels(); // Aggiorna i testi tradotti
+                          widget.onLocaleChange(newValue);
                         });
                         _saveSettings(newValue, wordLength);
                       }

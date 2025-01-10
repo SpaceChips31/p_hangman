@@ -91,7 +91,7 @@ class S {
   }
 
   /// `Language`
-  String get language {
+  String get languageLabel {
     return Intl.message(
       'Language',
       name: 'language',

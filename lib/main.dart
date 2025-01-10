@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'l10n/l10n.dart';  
+import 'l10n/l10n.dart';
 import 'screens/main_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/play_screen.dart';
@@ -10,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final prefs = await SharedPreferences.getInstance();
-  final languageCode = prefs.getString('selectedLanguage') ?? 'it'; 
+  final languageCode = prefs.getString('selectedLanguage') ?? 'it';
 
   runApp(MyApp(languageCode: languageCode));
 }
@@ -45,14 +45,14 @@ class _MyAppState extends State<MyApp> {
       title: 'HangMania',
       locale: _locale,
       supportedLocales: const [
-        Locale('en', ''), 
-        Locale('it', ''), 
+        Locale('en', ''),
+        Locale('it', ''),
       ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
-        S.delegate, 
+        S.delegate,
       ],
       initialRoute: '/',
       routes: {
