@@ -1,5 +1,5 @@
 name: p_hangman
-description: "A new Flutter project."
+description: "An HangMan game."
 publish_to: 'none' 
 
 version: 1.0.0+1
@@ -27,4 +27,5 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-    - lib/l10n/intl/
+    - lib/assets/l10n/intl/        # Translations
+    - lib/assets/themes/           # Themes

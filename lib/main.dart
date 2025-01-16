@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'l10n/l10n.dart';
+import 'assets/l10n/l10n.dart';
 import 'screens/main_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/play_screen.dart';
@@ -11,14 +11,16 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
   final languageCode = prefs.getString('selectedLanguage') ?? 'it';
+  final themeName = prefs.getString('themeMode') ?? 'system';
 
-  runApp(MyApp(languageCode: languageCode));
+  runApp(MyApp(languageCode: languageCode, themeName: themeName));
 }
 
 class MyApp extends StatefulWidget {
   final String languageCode;
+  final String themeName;
 
-  const MyApp({super.key, required this.languageCode});
+  const MyApp({super.key, required this.languageCode, required this.themeName});
 
   @override
   State<MyApp> createState() => _MyAppState();
