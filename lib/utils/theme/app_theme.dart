@@ -4,29 +4,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ThemeProvider with ChangeNotifier {
   late ThemeMode _themeMode;
 
-  ThemeProvider(String initialTheme) {
-    _themeMode = _getThemeModeFromString(initialTheme);
+  ThemeProvider(bool isDarkMode) {
+    _themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
   }
 
   ThemeMode get currentTheme => _themeMode;
 
-  Future<void> toggleTheme(bool isDark) async {
+  Future<void> setTheme(String theme) async {
+    bool isDark = (theme == 'dark');
     _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
 
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('themeMode', isDark ? 'dark' : 'light');
-  }
-
-  ThemeMode _getThemeModeFromString(String theme) {
-    switch (theme) {
-      case 'dark':
-        return ThemeMode.dark;
-      case 'light':
-        return ThemeMode.light;
-      default:
-        return ThemeMode.system;
-    }
+    await prefs.setBool('isDarkMode', isDark);
   }
 
   ThemeData get lightTheme => ThemeData(
@@ -37,12 +27,6 @@ class ThemeProvider with ChangeNotifier {
           backgroundColor: Colors.blue,
           foregroundColor: Colors.white,
         ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueAccent,
-            foregroundColor: Colors.white,
-          ),
-        ),
       );
 
   ThemeData get darkTheme => ThemeData(
@@ -51,12 +35,6 @@ class ThemeProvider with ChangeNotifier {
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.blueGrey,
           foregroundColor: Colors.white,
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueGrey[700],
-            foregroundColor: Colors.white,
-          ),
         ),
       );
 }
