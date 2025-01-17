@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:logger/logger.dart';
 import '../game/game_service.dart';
 import '../game/game_controller.dart';
-import '../assets/l10n/l10n.dart';
+import '/l10n/l10n.dart';
 
 class PlayScreen extends StatefulWidget {
   const PlayScreen({super.key});

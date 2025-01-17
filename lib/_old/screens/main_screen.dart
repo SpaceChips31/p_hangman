@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../assets/l10n/l10n.dart';
+import '/l10n/l10n.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
