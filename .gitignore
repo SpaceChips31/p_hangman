@@ -1,0 +1,59 @@
+# Flutter specific
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.idea/
+.vscode/
+build/
+ios/Flutter/.last_build_id
+
+# Dart specific
+.dart_tool/
+.flutter-*
+pubspec.lock
+
+# Android build files
+/android/app/debug/
+/android/app/release/
+
+# iOS build files
+/ios/Flutter/engine/
+
+# Android specific
+.gradle/
+local.properties
+*.iml
+
+# Test and coverage files
+test-coverage/
+
+# Flutter package dependencies
+.packages
+.pub-cache/
+
+# Temporary and backup files
+*~
+*.bak
+*.swp
+
+# macOS specific
+.DS_Store
+
+# VSCode specific
+.vscode/
+
+# Android Studio specific
+.idea/
+
+# User-specific files
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+*.iml
+
+# Log files
+*.log
+
+# Cache files
+.cache/
