@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../main.dart';
 import '../utils/theme/app_theme.dart';
 import '../utils/localization/l10n.dart';
 
@@ -57,7 +58,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _saveSettings(String key, dynamic value) async {
     final prefs = await SharedPreferences.getInstance();
-    if (value is bool) {
+    if (value is String) {
+      await prefs.setString(key, value);
+    } else if (value is bool) {
       await prefs.setBool(key, value);
     } else if (value is double) {
       await prefs.setDouble(key, value);
@@ -82,17 +85,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: AppLocalizations.of(context).translate('language'),
                   child: DropdownButton<String>(
                     value: selectedLanguage,
-                    onChanged: (String? newValue) {
+                    onChanged: (String? newValue) async {
                       if (newValue != null) {
+                        final myAppState =
+                            context.findAncestorStateOfType<MyAppState>();
+                        myAppState?.setLocale(newValue);
+
+                        await _saveSettings('selectedLanguage', newValue);
+
                         setState(() {
                           selectedLanguage = newValue;
                         });
-                        _saveSettings('selectedLanguage', newValue);
                       }
                     },
                     items: const [
-                      DropdownMenuItem(value: 'it', child: Text("Italiano")),
-                      DropdownMenuItem(value: 'en', child: Text("English")),
+                      DropdownMenuItem(
+                          value: 'it', child: Text("🇮🇹 Italiano")),
+                      DropdownMenuItem(
+                          value: 'en', child: Text("🇺🇸 English")),
                     ],
                     dropdownColor: Colors.white,
                   ),
@@ -101,11 +111,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: AppLocalizations.of(context).translate('dark_mode'),
                   child: Switch(
                     value: isDarkMode,
-                    onChanged: (bool value) {
+                    onChanged: (bool value) async {
                       setState(() {
                         isDarkMode = value;
                       });
-                      _saveSettings('isDarkMode', value);
+                      await _saveSettings('isDarkMode', value);
                       themeProvider.setTheme(value ? 'dark' : 'light');
                     },
                   ),
@@ -121,11 +131,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         max: 12,
                         divisions: 6,
                         label: wordLength.round().toString(),
-                        onChanged: (double value) {
+                        onChanged: (double value) async {
                           setState(() {
                             wordLength = value;
                           });
-                          _saveSettings('wordLength', value);
+                          await _saveSettings('wordLength', value);
                         },
                       ),
                     ],
@@ -135,11 +145,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: AppLocalizations.of(context).translate('enable_timer'),
                   child: Switch(
                     value: isTimerEnabled,
-                    onChanged: (bool value) {
+                    onChanged: (bool value) async {
                       setState(() {
                         isTimerEnabled = value;
                       });
-                      _saveSettings('isTimerEnabled', value);
+                      await _saveSettings('isTimerEnabled', value);
                     },
                   ),
                 ),

@@ -12,15 +12,21 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
 
+  String? savedLanguage = prefs.getString('selectedLanguage');
+
+  String systemLocale = PlatformDispatcher.instance.locale.languageCode;
+  final supportedLocales = ['it', 'en'];
+  String languageCode = savedLanguage ??
+      (supportedLocales.contains(systemLocale) ? systemLocale : 'en');
+
+  if (savedLanguage == null) {
+    await prefs.setString('selectedLanguage', languageCode);
+  }
+
   Brightness systemBrightness =
       WidgetsBinding.instance.platformDispatcher.platformBrightness;
   bool isDarkMode =
       prefs.getBool('isDarkMode') ?? (systemBrightness == Brightness.dark);
-
-  String systemLocale = PlatformDispatcher.instance.locale.languageCode;
-  final supportedLocales = ['it', 'en'];
-  final languageCode = prefs.getString('selectedLanguage') ??
-      (supportedLocales.contains(systemLocale) ? systemLocale : 'en');
 
   runApp(MyApp(languageCode: languageCode, isDarkMode: isDarkMode));
 }
@@ -36,10 +42,10 @@ class MyApp extends StatefulWidget {
   });
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<MyApp> createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   late Locale _locale;
   late bool _isDarkMode;
 
@@ -64,12 +70,18 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(
           create: (_) => ThemeProvider(_isDarkMode),
+          lazy: false,
         ),
       ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
+      child: Builder(
+        builder: (context) {
+          final themeProvider =
+              Provider.of<ThemeProvider?>(context, listen: false);
+          if (themeProvider == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
           return MaterialApp.router(
-            title: 'Hangman Game',
+            title: 'HangMania',
             locale: _locale,
             supportedLocales: const [
               Locale('en', ''),

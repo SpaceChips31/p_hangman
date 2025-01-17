@@ -26,7 +26,7 @@ class PlayScreen extends StatelessWidget {
                       if (gameController.isTimerEnabled)
                         _buildTimer(gameController, context),
                       Text(
-                        "${AppLocalizations.of(context).translate('app_title')} ${gameController.errorCount} / ${gameController.maxErrors}",
+                        "${AppLocalizations.of(context).translate('errors')} ${gameController.errorCount} / ${gameController.maxErrors}",
                         style: const TextStyle(fontSize: 20, color: Colors.red),
                       ),
                       const SizedBox(height: 20),
@@ -49,7 +49,7 @@ class PlayScreen extends StatelessWidget {
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: gameController.remainingTime <= 5 ? Colors.red : Colors.black,
+          color: gameController.remainingTime <= 5 ? Colors.red : Colors.green,
         ),
       ),
     );
