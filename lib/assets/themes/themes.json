@@ -1,0 +1,18 @@
+{
+    "themes": {
+        "light": {
+            "primaryColor": "#6200EE",
+            "accentColor": "#03DAC6",
+            "backgroundColor": "#FFFFFF",
+            "buttonColor": "#6200EE",
+            "textColor": "#000000"
+        },
+        "dark": {
+            "primaryColor": "#3700B3",
+            "accentColor": "#03DAC6",
+            "backgroundColor": "#121212",
+            "buttonColor": "#BB86FC",
+            "textColor": "#FFFFFF"
+        }
+    }
+}
