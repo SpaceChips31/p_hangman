@@ -1,3 +1,3 @@
-# p_hangman
+# HangMania
 
-A new Flutter project.
+An HangMan game made with Flutter.
